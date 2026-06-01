@@ -2,6 +2,7 @@ const express = require('express');
 const cors    = require('cors');
 const categorias = require('./routes/categorias');
 const recetas = require('./routes/recetas');
+const auth = require('./routes/auth');
 
 const app  = express();
 const PORT = 3001;
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/categorias', categorias);
 app.use('/recetas', recetas);
+app.use('/auth', auth);
 
 app.get('/', (req, res) => {
   res.json({ mensaje: 'API recetario funcionando' });

@@ -3,18 +3,25 @@ import Layout        from './components/Layout';
 import ListaRecetas  from './pages/ListaRecetas';
 import FormReceta    from './pages/FormReceta';
 import DetalleReceta from './pages/DetalleReceta';
+import Login         from './pages/Login';
+import RutaProtegida from './components/RutaProtegida';
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
+     
         <Routes>
+          <Route path="/login" element={<Login />} />
+        
+          <Route element={<RutaProtegida />}>
           <Route path="/"           element={<ListaRecetas />} />
           <Route path="/nueva"      element={<FormReceta />} />
           <Route path="/editar/:id" element={<FormReceta />} />
           <Route path="/receta/:id" element={<DetalleReceta />} />
+          </Route>
+          
         </Routes>
-      </Layout>
+     
     </BrowserRouter>
   );
 }
