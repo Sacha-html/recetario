@@ -1,127 +1,128 @@
-# Recetario
+# Documentación del Proyecto — Recetario
 
-Aplicación web para guardar, modificar y dar de baja lógica recetas de cocina.
-
-## Stack
-
-- **Frontend:** React 18 + Vite + Bootstrap 5 (SB Admin template)
-- **Backend:** Node.js + Express
-- **Base de datos:** MySQL
+¡Bienvenido a la documentación oficial de la aplicación **Recetario**! Aquí encontrarás toda la información técnica necesaria para comprender, ejecutar y continuar desarrollando el proyecto.
 
 ---
 
-## Estructura de carpetas
+## 📌 Índice de Documentación Especializada
+
+Para facilitar la lectura y el mantenimiento, la documentación se divide en tres módulos principales de arquitectura, más el script de inicialización de datos:
+
+1. 💻 **[Documentación del Frontend (front.md)](file:///c:/Users/sacha/OneDrive/Escritorio/Lboratorio/recetario/documentacion/front.md)**
+   * Librerías y dependencias del cliente (React, Bootstrap, Vite).
+   * Arquitectura del frontend (Single Page Application, enrutador, flujo de datos).
+   * Maquetación y diseño visual de las vistas (Login, Listado, Detalle, Formulario).
+   * Validaciones e interactividad de la UI.
+
+2. ⚙️ **[Documentación del Backend (back.md)](file:///c:/Users/sacha/OneDrive/Escritorio/Lboratorio/recetario/documentacion/back.md)**
+   * Librerías y dependencias del servidor (Express, mysql2, dotenv).
+   * Arquitectura de la API REST y pool de conexiones.
+   * Detalle de endpoints HTTP (métodos, rutas, payloads y respuestas).
+   * Convenciones de desarrollo (esquema de baja lógica, seguridad contra SQL injection).
+
+3. 🗄️ **[Documentación de la Base de Datos (base.md)](file:///c:/Users/sacha/OneDrive/Escritorio/Lboratorio/recetario/documentacion/base.md)**
+   * Arquitectura y codificación del motor relacional MySQL.
+   * Diagrama Entidad-Relación (ERD) en formato Mermaid.
+   * Diccionario de datos detallado para cada tabla (`usuarios`, `categorias`, `receta`).
+
+4. 📄 **[Script SQL de Inicialización (base_de_datos.md)](file:///c:/Users/sacha/OneDrive/Escritorio/Lboratorio/recetario/documentacion/base_de_datos.md)**
+   * Script completo (DDL & DML) para crear la base de datos, las tablas y poblar las semillas de prueba (categorías por defecto, usuario administrador y recetas precargadas).
+
+---
+
+## 📂 Estructura General del Repositorio
+
+El proyecto está organizado en una estructura monorrepiso simple (frontend y backend en carpetas separadas):
 
 ```
 recetario/
-  ├── documentacion/
-  │     └── README.md
-  ├── backend/
-  │     ├── routes/
-  │     │     ├── categorias.js
-  │     │     └── recetas.js
-  │     ├── db.js
-  │     ├── index.js
-  │     ├── CLAUDE.md
-  │     └── package.json
-  └── frontend/
-        ├── public/
-        │     ├── assets/
-        │     ├── css/
-        │     └── js/
-        ├── src/
-        │     ├── components/
-        │     │     ├── Layout.jsx
-        │     │     └── ModalConfirmar.jsx
-        │     ├── pages/
-        │     │     ├── ListaRecetas.jsx
-        │     │     ├── FormReceta.jsx
-        │     │     └── DetalleReceta.jsx
-        │     ├── services/
-        │     │     └── api.js
-        │     ├── App.jsx
-        │     └── main.jsx
-        ├── index.html
-        ├── CLAUDE.md
-        └── package.json
+├── documentacion/          # Archivos de documentación (markdown)
+│   ├── README.md           # Índice principal (este archivo)
+│   ├── front.md            # Documentación del Frontend (React)
+│   ├── back.md             # Documentación del Backend (Express)
+│   ├── base.md             # Documentación del Modelo de Datos (MySQL)
+│   └── base_de_datos.md    # Script DDL/DML de inicialización SQL
+├── backend/                # API REST
+│   ├── routes/             # Módulos de rutas Express
+│   ├── db.js               # Conexión/Pool a base de datos
+│   ├── index.js            # Punto de entrada de la API
+│   └── package.json        # Dependencias y scripts del backend
+└── frontend/               # Cliente web (SPA)
+    ├── public/             # Archivos estáticos y estilos globales
+    ├── src/                # Código fuente en React
+    │   ├── assets/         # Recursos visuales (imágenes, logos)
+    │   ├── components/     # Componentes compartidos e infraestructura
+    │   ├── pages/          # Páginas/vistas del flujo de navegación
+    │   ├── services/       # Conectores de red (API call wrappers)
+    │   ├── App.jsx         # Configuración de rutas
+    │   └── main.jsx        # Renderizador de la SPA
+    └── package.json        # Dependencias y scripts del frontend
 ```
 
 ---
 
-## Base de datos
+## 🚀 Guía de Inicio Rápido (Cómo correr el proyecto)
 
-Base de datos: `recetario`
+### Paso 1: Configurar la Base de Datos
+1. Asegúrate de tener instalado y activo un servidor **MySQL 8.0+**.
+2. Abre tu cliente SQL favorito (ej. MySQL Workbench) y conéctate al servidor.
+3. Copia el script completo ubicado en **[base_de_datos.md](file:///c:/Users/sacha/OneDrive/Escritorio/Lboratorio/recetario/documentacion/base_de_datos.md)**, pégalo en una pestaña de query y ejecútalo. Esto configurará el esquema de tablas y cargará las recetas iniciales.
 
-### Tabla `categorias`
+### Paso 2: Configurar y Levantar el Backend
+1. Abre una terminal y navega hasta el directorio del backend:
+   ```bash
+   cd backend
+   ```
+2. Instala las dependencias del proyecto:
+   ```bash
+   npm install
+   ```
+3. Crea un archivo `.env` en la raíz de la carpeta `backend/` con las credenciales de tu base de datos:
+   ```env
+   DB_HOST=localhost
+   DB_USER=tu_usuario
+   DB_PASSWORD=tu_contrasenia
+   DB_NAME=recetario
+   ```
+4. Inicia el servidor en modo desarrollo (utiliza `nodemon`):
+   ```bash
+   npm run dev
+   ```
+   *El servidor correrá en `http://localhost:3001`.*
 
-| Campo        | Tipo         | Descripción              |
-|--------------|--------------|--------------------------|
-| id_categoria | INT PK AI    | Identificador            |
-| nombre       | VARCHAR(100) | Nombre de la categoría   |
-| activo       | BOOL         | Baja lógica (default: 1) |
-
-### Tabla `receta`
-
-| Campo              | Tipo         | Descripción                        |
-|--------------------|--------------|------------------------------------|
-| id_receta          | INT PK AI    | Identificador                      |
-| nombre             | VARCHAR(200) | Nombre de la receta                |
-| descripcion        | TEXT         | Descripción breve                  |
-| ingredientes       | TEXT         | Ingredientes (uno por línea)       |
-| pasos              | TEXT         | Pasos de preparación               |
-| tiempo_preparacion | INT          | Tiempo en minutos                  |
-| id_categoria       | INT FK       | Referencia a `categorias`          |
-| activo             | BOOL         | Baja lógica (default: 1)           |
-| fecha_creacion     | DATETIME     | Se asigna automáticamente          |
-
----
-
-## Componentes React
-
-| Componente | Descripción |
-|------------|-------------|
-| `Layout` | Navbar + Sidebar + Footer, envuelve todas las páginas |
-| `ModalConfirmar` | Modal reutilizable de confirmación de acciones |
-| `ListaRecetas` | Listado con filtro por categoría y acciones |
-| `FormReceta` | Alta y edición en un mismo componente |
-| `DetalleReceta` | Vista completa de una receta |
-
----
-
-## Endpoints del backend
-
-Base URL: `http://localhost:3001`
-
-| Método | Ruta                | Acción                        |
-|--------|---------------------|-------------------------------|
-| GET    | `/categorias`       | Lista categorías activas      |
-| GET    | `/recetas`          | Lista recetas activas         |
-| GET    | `/recetas/:id`      | Detalle de una receta         |
-| POST   | `/recetas`          | Crear receta                  |
-| PUT    | `/recetas/:id`      | Editar receta                 |
-| PUT    | `/recetas/:id/baja` | Baja lógica de una receta     |
+### Paso 3: Configurar y Levantar el Frontend
+1. Abre otra ventana de terminal y dirígete al directorio del frontend:
+   ```bash
+   cd frontend
+   ```
+2. Instala las dependencias del proyecto:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo de Vite:
+   ```bash
+   npm run dev
+   ```
+   *La aplicación abrirá por defecto en `http://localhost:5173` o el puerto que te indique la consola.*
 
 ---
 
-## Cómo correr el proyecto
+## 📋 Resumen Rápido de Componentes y Endpoints
 
-### Base de datos
-Ejecutar el script SQL en MySQL Workbench para crear la base y las tablas.
+### Componentes de la Interfaz (Frontend)
+* `Login`: Formulario con estilo vidrio esmerilado y validación de acceso.
+* `ListaRecetas`: Tabla de visualización principal con filtro interactivo por categoría.
+* `DetalleReceta`: Ficha técnica de ingredientes (en columna izquierda) y pasos de preparación (columna derecha).
+* `FormReceta`: Formulario reactivo reutilizable para dar de alta o editar recetas, con validaciones dinámicas.
+* `Layout`: Barra de navegación fija con logo, menú y botón "Salir", y un footer.
+* `RutaProtegida`: Verifica la existencia del token en el navegador antes de dar acceso.
+* `ModalConfirmar`: Ventana emergente utilizada para confirmar la baja lógica de una receta.
 
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
-# corre en http://localhost:3001
-```
-
-> Crear el archivo `backend/.env` con las variables `DB_HOST`, `DB_USER`, `DB_PASSWORD` y `DB_NAME`. Este archivo no se sube al repositorio.
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-# corre en http://localhost:5173
-```
+### Endpoints del Servidor (Backend)
+* `POST /auth/login`: Autentica al usuario.
+* `GET /categorias`: Devuelve la lista de categorías de comida activas.
+* `GET /recetas`: Obtiene todas las recetas activas (`activo = 1`).
+* `GET /recetas/:id`: Obtiene el detalle de una receta particular activa.
+* `POST /recetas`: Inserta una nueva receta.
+* `PUT /recetas/:id`: Actualiza los datos de una receta existente.
+* `PUT /recetas/:id/baja`: Cambia el estado `activo` a `0` (baja lógica).

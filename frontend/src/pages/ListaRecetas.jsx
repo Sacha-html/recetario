@@ -68,7 +68,7 @@ export default function ListaRecetas() {
               ))}
             </select>
           </div>
-
+              
 
           {/* Tabla */}
           {recetasFiltradas.length === 0 ? (

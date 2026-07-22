@@ -45,16 +45,23 @@ export default function FormReceta() {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    
+    // --- NUEVA VALIDACIÓN PARA TIEMPO DE PREPARACIÓN ---
+    let valorFinal = value;
+    if (name === 'tiempo_preparacion') {
+        // Elimina cualquier caracter que no sea un número (bloquea la letra 'e', signos de menos, etc.)
+        valorFinal = value.replace(/[^0-9]/g, '');
+    }
+
+    setForm(prev => ({ ...prev, [name]: valorFinal }));
   
-  if (errores[name]) {
+    if (errores[name]) {
       setErrores(prev => ({ ...prev, [name]: false }));
     }
-  
   };
+
   const handleSubmit = async e => {
     e.preventDefault();
-    
     
     const nuevosErrores = {};
     
@@ -65,7 +72,6 @@ export default function FormReceta() {
     if (!form.ingredientes.trim()) nuevosErrores.ingredientes = true;
     if (!form.pasos.trim()) nuevosErrores.pasos = true;
 
-    
     if (Object.keys(nuevosErrores).length > 0) {
       setErrores(nuevosErrores);
       return; 
@@ -135,15 +141,17 @@ export default function FormReceta() {
               {errores.descripcion && <div className="invalid-feedback">Campo obligatorio</div>}
             </div>
 
+            {/* --- INPUT DE TIEMPO ACTUALIZADO --- */}
             <div className="mb-3" style={{ maxWidth: 200 }}>
               <label className="form-label fw-semibold">Tiempo de preparación (min)</label>
               <input
                 type="number"
+                min="1"
+                step="1"
                 className={`form-control bg-transparent text-dark fw-semibold border-secondary ${errores.tiempo_preparacion ? 'is-invalid' : ''}`}
                 name="tiempo_preparacion"
                 value={form.tiempo_preparacion}
                 onChange={handleChange}
-                min={1}
               />
               {errores.tiempo_preparacion && <div className="invalid-feedback">Campo obligatorio</div>}
             </div>
